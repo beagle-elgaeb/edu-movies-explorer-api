@@ -9,9 +9,16 @@
     "nodemon": "^2.0.13"
   },
   "scripts": {
-    "start": "node app.js",
-    "dev": "nodemon app.js"
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js"
   },
-  "dependencies": {},
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "express": "^4.17.1",
+    "express-winston": "^4.2.0",
+    "mongoose": "^6.0.13",
+    "validator": "^13.7.0",
+    "winston": "^3.3.3"
+  },
   "license": "MIT"
 }
