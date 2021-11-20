@@ -1,0 +1,17 @@
+{
+  "name": "movies-explorer-api",
+  "version": "1.0.0",
+  "description": "backend diploma",
+  "main": "app.js",
+  "repository": "https://github.com/beagle-elgaeb/edu-movies-explorer-api.git",
+  "author": "Евгения Никонова <begale.elgaeb@ya.ru>",
+  "devDependencies": {
+    "nodemon": "^2.0.13"
+  },
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "dependencies": {},
+  "license": "MIT"
+}
