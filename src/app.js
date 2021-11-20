@@ -1,10 +1,10 @@
 const express = require("express");
 // const cors = require("cors");
 const mongoose = require("mongoose");
-// const { errors } = require("celebrate");
+const { errors } = require("celebrate");
 // const cookieParser = require("cookie-parser");
 // const valid = require("./middlewares/validation");
-// const { requestLogger, errorLogger } = require("./middlewares/logger");
+const { requestLogger, errorLogger } = require("./middlewares/logger");
 // require("dotenv").config();
 // const NotFoundError = require("./errors/not-found-err");
 
@@ -33,7 +33,7 @@ mongoose.connect("mongodb://localhost:27017/filmsdb", {
 // const userRouter = require("./routes/users");
 // const cardRouter = require("./routes/cards");
 
-// app.use(requestLogger);
+app.use(requestLogger);
 
 // app.post("/signup", valid.validNewUser, createUser);
 // app.post("/signin", valid.validLogin, login);
@@ -45,19 +45,19 @@ mongoose.connect("mongodb://localhost:27017/filmsdb", {
 //   throw new NotFoundError("Запрошена несуществующая страница");
 // });
 
-// app.use(errorLogger);
+app.use(errorLogger);
 
-// app.use(errors());
+app.use(errors());
 
-// app.use((err, req, res, next) => {
-//   const { statusCode = 500, message } = err;
+app.use((err, req, res, next) => {
+  const { statusCode = 500, message } = err;
 
-//   res.status(statusCode).send({
-//     message: statusCode === 500 ? "Сервер не может обработать запрос" : message,
-//   });
+  res.status(statusCode).send({
+    message: statusCode === 500 ? "Сервер не может обработать запрос" : message,
+  });
 
-//   next();
-// });
+  next();
+});
 
 app.listen(PORT, () => {
   // eslint-disable-next-line no-console
