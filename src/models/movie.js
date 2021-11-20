@@ -12,6 +12,7 @@ const movieSchema = new mongoose.Schema({
     required: true,
     validate: {
       validator(link) {
+        // @ts-ignore
         return validator.isURL(link);
       },
       message: "Некорректный URL",
@@ -23,6 +24,7 @@ const movieSchema = new mongoose.Schema({
     required: true,
     validate: {
       validator(link) {
+        // @ts-ignore
         return validator.isURL(link);
       },
       message: "Некорректный URL",
@@ -34,6 +36,7 @@ const movieSchema = new mongoose.Schema({
     required: true,
     validate: {
       validator(link) {
+        // @ts-ignore
         return validator.isURL(link);
       },
       message: "Некорректный URL",
