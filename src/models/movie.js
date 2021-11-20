@@ -12,7 +12,6 @@ const movieSchema = new mongoose.Schema({
     required: true,
     validate: {
       validator(link) {
-        // @ts-ignore
         return validator.isURL(link);
       },
       message: "Некорректный URL",
@@ -24,7 +23,6 @@ const movieSchema = new mongoose.Schema({
     required: true,
     validate: {
       validator(link) {
-        // @ts-ignore
         return validator.isURL(link);
       },
       message: "Некорректный URL",
@@ -36,15 +34,13 @@ const movieSchema = new mongoose.Schema({
     required: true,
     validate: {
       validator(link) {
-        // @ts-ignore
         return validator.isURL(link);
       },
       message: "Некорректный URL",
       require_protocol: true,
     },
   },
-  owner: { type: mongoose.Schema.Types.ObjectId, required: true },
-  movieId: { type: mongoose.Schema.Types.ObjectId, required: true },
+  owner: { type: mongoose.Schema.Types.ObjectId, ref: "user", required: true },
   nameRU: { type: String, required: true },
   nameEN: { type: String, required: true },
 });

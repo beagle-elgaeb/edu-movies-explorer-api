@@ -2,8 +2,6 @@ const User = require("../models/user");
 const NotFoundError = require("../errors/not-found-err");
 const BadRequestError = require("../errors/bad-request-err");
 
-const { NODE_ENV, JWT_SECRET } = process.env;
-
 module.exports.getUser = async (req, res, next) => {
   const userId = req.user._id;
 
@@ -27,16 +25,16 @@ module.exports.getUser = async (req, res, next) => {
 
 module.exports.updateUser = async (req, res, next) => {
   const userId = req.user._id;
-  const { name, email } = req.body;
+  const { name } = req.body;
 
   try {
-    if (!name || !email ) {
+    if (!name) {
       throw new BadRequestError("Переданы некорректные данные");
     }
 
     const userProfile = await User.findByIdAndUpdate(
       userId,
-      { name, email },
+      { name },
       { new: true, runValidators: true },
     );
 

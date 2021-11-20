@@ -1,49 +1,52 @@
 const express = require("express");
-// const cors = require("cors");
+const cors = require("cors");
 const mongoose = require("mongoose");
 const { errors } = require("celebrate");
-// const cookieParser = require("cookie-parser");
-// const valid = require("./middlewares/validation");
+const cookieParser = require("cookie-parser");
+const valid = require("./middlewares/validation");
 const { requestLogger, errorLogger } = require("./middlewares/logger");
-// require("dotenv").config();
-// const NotFoundError = require("./errors/not-found-err");
+require("dotenv").config();
+const NotFoundError = require("./errors/not-found-err");
 
 const { NODE_ENV, PORT = 3000 } = process.env;
 const app = express();
 
-// app.use(
-//   cors(NODE_ENV === "production"
-//     ? {
-//       origin: ["https://beagle-elgaeb.nomoredomains.rocks", "http://beagle-elgaeb.nomoredomains.rocks"],
-//       credentials: true,
-//     }
-//     : {}),
-// );
+app.use(
+  cors(
+    NODE_ENV === "production"
+      ? {
+        origin: ["https://beagle-elgaeb.nomoredomains.rocks", "http://beagle-elgaeb.nomoredomains.rocks"],
+        credentials: true,
+      }
+      : {},
+  ),
+);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-// app.use(cookieParser());
+app.use(cookieParser());
 
-// const { createUser, login } = require("./controllers/users");
+const { createUser, login, logout } = require("./controllers/auth");
 
 mongoose.connect("mongodb://localhost:27017/filmsdb", {
   useNewUrlParser: true,
 });
 
-// const userRouter = require("./routes/users");
-// const cardRouter = require("./routes/cards");
+const usersRouter = require("./routes/users");
+const moviesRouter = require("./routes/movies");
 
 app.use(requestLogger);
 
-// app.post("/signup", valid.validNewUser, createUser);
-// app.post("/signin", valid.validLogin, login);
+app.post("/signup", valid.validNewUser, createUser);
+app.post("/signin", valid.validLogin, login);
+app.get("/signout", logout);
 
-// app.use("/users", userRouter);
-// app.use("/cards", cardRouter);
+app.use("/users", usersRouter);
+app.use("/movies", moviesRouter);
 
-// app.use(() => {
-//   throw new NotFoundError("Запрошена несуществующая страница");
-// });
+app.use(() => {
+  throw new NotFoundError("Запрошена несуществующая страница");
+});
 
 app.use(errorLogger);
 

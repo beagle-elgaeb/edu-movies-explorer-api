@@ -2,21 +2,31 @@
   "name": "movies-explorer-api",
   "version": "1.0.0",
   "description": "backend diploma",
-  "main": "app.js",
-  "repository": "https://github.com/beagle-elgaeb/edu-movies-explorer-api.git",
   "author": "Евгения Никонова <begale.elgaeb@ya.ru>",
+  "repository": "https://github.com/beagle-elgaeb/edu-movies-explorer-api.git",
+  "main": "src/app.js",
   "devDependencies": {
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.24.2",
     "nodemon": "^2.0.13"
   },
   "scripts": {
     "start": "node src/app.js",
-    "dev": "nodemon src/app.js"
+    "dev": "nodemon src/app.js",
+    "lint": "npx eslint ."
   },
   "dependencies": {
-    "bcrypt": "^5.0.1",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
     "celebrate": "^15.0.0",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-winston": "^4.2.0",
+    "joi": "^17.4.2",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.0.13",
     "validator": "^13.7.0",
     "winston": "^3.3.3"
