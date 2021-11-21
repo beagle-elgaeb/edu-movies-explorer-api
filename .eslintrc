@@ -1,10 +1,11 @@
 {
-  "extends": "airbnb-base",
-  "rules": {
-    "no-underscore-dangle": ["error", { "allow": ["_id"]}],
-    "quotes": ["error", "double"]
-  },
+  "extends": ["airbnb-base", "airbnb-typescript/base"],
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "ecmaVersion": 2020
+    "project": "./tsconfig.json"
+  },
+  "plugins": ["@typescript-eslint"],
+  "rules": {
+    "no-underscore-dangle": ["error", { "allow": ["_id"]}]
   }
 }

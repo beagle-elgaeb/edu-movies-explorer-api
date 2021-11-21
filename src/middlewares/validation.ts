@@ -1,16 +1,17 @@
-const { celebrate, Joi, CelebrateError } = require("celebrate");
-const validator = require("validator");
+import { celebrate, CelebrateError, Joi } from 'celebrate';
+import validator from 'validator';
+import { incorrectUrl } from '../constants';
 
-const validUrl = (link) => {
+const validUrl = (link: string) => {
   if (
-    !validator.isURL(link, { protocols: ["http", "https"], require_protocol: true })) {
-    throw new CelebrateError("Некорректный URL");
+    !validator.isURL(link, { protocols: ['http', 'https'], require_protocol: true })) {
+    throw new CelebrateError(incorrectUrl);
   }
 
   return link;
 };
 
-module.exports.validNewUser = celebrate({
+export const validNewUser = celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().email(),
     password: Joi.string().required().min(8),
@@ -18,20 +19,20 @@ module.exports.validNewUser = celebrate({
   }),
 });
 
-module.exports.validLogin = celebrate({
+export const validLogin = celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().email(),
     password: Joi.string().required().min(8),
   }),
 });
 
-module.exports.validUser = celebrate({
+export const validUser = celebrate({
   body: Joi.object().keys({
     name: Joi.string().required().min(2).max(30),
   }),
 });
 
-module.exports.validMovie = celebrate({
+export const validMovie = celebrate({
   body: Joi.object().keys({
     country: Joi.string().required(),
     director: Joi.string().required(),
@@ -46,7 +47,7 @@ module.exports.validMovie = celebrate({
   }),
 });
 
-module.exports.validMovieId = celebrate({
+export const validMovieId = celebrate({
   params: Joi.object().keys({
     movieId: Joi.string().alphanum().length(24).hex(),
   }),
