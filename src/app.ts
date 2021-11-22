@@ -12,7 +12,7 @@ import routes from './routes';
 
 dotenv.config();
 
-const { NODE_ENV, DATA_BASE, PORT } = process.env;
+const { NODE_ENV, DATA_BASE, PORT = 3000 } = process.env;
 
 const app = express();
 
@@ -30,4 +30,6 @@ app.use(errorLogger);
 app.use(errors());
 app.use(errorHandler);
 
-app.listen(NODE_ENV === 'production' ? PORT : 3000, () => { });
+app.listen(PORT, () => {
+  console.log(`App слушает порт ${PORT}`);
+});
