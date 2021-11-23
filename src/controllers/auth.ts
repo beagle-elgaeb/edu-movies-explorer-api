@@ -1,9 +1,9 @@
 import bcrypt from 'bcryptjs';
 import { NextFunction, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
+import { devSecret } from '../config';
 import {
-  authorizationCompleted, authorizationError, incorrectData,
-  userNotFound,
+  authorizationCompleted, authorizationError, incorrectData, userFound,
 } from '../constants';
 import BadRequestError from '../errors/bad-request-err';
 import ConflictError from '../errors/conflict-err';
@@ -35,7 +35,7 @@ export const createUser = async (req: Request, res: Response, next: NextFunction
     });
   } catch (err: any) {
     if (err.name === 'MongoServerError' && err.code === 11000) {
-      next(new ConflictError(userNotFound));
+      next(new ConflictError(userFound));
       return;
     }
 
@@ -60,7 +60,7 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
 
     const token = jwt.sign(
       { _id: user._id },
-      NODE_ENV === 'production' ? JWT_SECRET! : 'dev-secret',
+      NODE_ENV === 'production' ? JWT_SECRET! : devSecret,
       { expiresIn: '7d' },
     );
 

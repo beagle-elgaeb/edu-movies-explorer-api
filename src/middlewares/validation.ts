@@ -15,7 +15,7 @@ export const validNewUser = celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().email(),
     password: Joi.string().required().min(8),
-    name: Joi.string().min(2).max(30),
+    name: Joi.string().required().min(2).max(30),
   }),
 });
 
@@ -29,6 +29,7 @@ export const validLogin = celebrate({
 export const validUser = celebrate({
   body: Joi.object().keys({
     name: Joi.string().required().min(2).max(30),
+    email: Joi.string().required().email(),
   }),
 });
 
@@ -42,6 +43,7 @@ export const validMovie = celebrate({
     image: Joi.string().required().custom(validUrl),
     trailer: Joi.string().required().custom(validUrl),
     thumbnail: Joi.string().required().custom(validUrl),
+    movieId: Joi.number().required(),
     nameRU: Joi.string().required(),
     nameEN: Joi.string().required(),
   }),

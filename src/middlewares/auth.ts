@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
+import { devSecret } from '../config';
 import { needToLogin } from '../constants';
 import Unauthorized from '../errors/unauthorized-err';
 import { UserData } from '../models/user';
@@ -18,7 +19,7 @@ export default (req: Request, res: Response, next: NextFunction) => {
   try {
     payload = jwt.verify(
       biscuit,
-      NODE_ENV === 'production' ? JWT_SECRET! : 'dev-secret',
+      NODE_ENV === 'production' ? JWT_SECRET! : devSecret,
     );
   } catch (err) {
     throw new Unauthorized(needToLogin);

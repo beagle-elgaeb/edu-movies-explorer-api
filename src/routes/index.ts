@@ -16,6 +16,6 @@ routes.get('/signout', logout);
 routes.use('/users', auth, usersRouter);
 routes.use('/movies', auth, moviesRouter);
 
-routes.use(() => { throw new NotFoundError(notFound); });
+routes.use('/*', auth, () => { throw new NotFoundError(notFound); });
 
 export default routes;

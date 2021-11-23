@@ -1,8 +1,9 @@
 import { NextFunction, Request, Response } from 'express';
 import {
-  incorrectData, invalidId, userNotFound,
+  incorrectData, invalidId, emailFound, userNotFound,
 } from '../constants';
 import BadRequestError from '../errors/bad-request-err';
+import ConflictError from '../errors/conflict-err';
 import NotFoundError from '../errors/not-found-err';
 import User from '../models/user';
 
@@ -29,21 +30,26 @@ export const getUser = async (req: Request, res: Response, next: NextFunction) =
 
 export const updateUser = async (req: Request, res: Response, next: NextFunction) => {
   const userId = req.user._id;
-  const { name } = req.body;
+  const { name, email } = req.body;
 
   try {
-    if (!name) {
+    if (!name || !email) {
       throw new BadRequestError(incorrectData);
     }
 
     const userProfile = await User.findByIdAndUpdate(
       userId,
-      { name },
+      { name, email },
       { new: true, runValidators: true },
     );
 
     res.send(userProfile);
   } catch (err: any) {
+    if (err.name === 'MongoServerError' && err.code === 11000) {
+      next(new ConflictError(emailFound));
+      return;
+    }
+
     if (err.name === 'ValidationError') {
       next(new BadRequestError(incorrectData));
       return;

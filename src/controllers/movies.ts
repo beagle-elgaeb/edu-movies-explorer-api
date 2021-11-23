@@ -28,6 +28,7 @@ export const postMovie = async (req: Request, res: Response, next: NextFunction)
     image,
     trailer,
     thumbnail,
+    movieId,
     nameRU,
     nameEN,
   } = req.body;
@@ -42,6 +43,7 @@ export const postMovie = async (req: Request, res: Response, next: NextFunction)
       image,
       trailer,
       thumbnail,
+      movieId,
       nameRU,
       nameEN,
       owner: req.user._id,
