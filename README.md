@@ -20,9 +20,9 @@
 
 ### Описание
 
-- домен для фронтенда: `evgni.nomoredomains.work`.
-- домен для бэкенда: `[evgni.diploma.nomoredomains.rocks](https://evgni.diploma.nomoredomains.rocks/movies)` _(зазевалась и, думая, что регистрирую домен для фронта, зарегистрировала его для бэка =( потому и без `api.` )_.
-- публичный IP: `[51.250.4.102](http://51.250.4.102/)`.
+- домен для фронтенда: `eugenes.romey.ru`.
+- домен для бэкенда: [api.eugenes.romey.ru](https://api.eugenes.romey.ru).
+- публичный IP: `51.250.4.102`.
 
 ### Функциональность проекта
 
