@@ -11,7 +11,7 @@ const routes = rout.Router();
 
 routes.post('/signup', validNewUser, createUser);
 routes.post('/signin', validLogin, login);
-routes.get('/signout', logout);
+routes.post('/signout', logout);
 
 routes.use('/users', auth, usersRouter);
 routes.use('/movies', auth, moviesRouter);

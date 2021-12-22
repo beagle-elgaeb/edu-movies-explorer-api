@@ -1,24 +1,33 @@
 import { NextFunction, Request, Response } from 'express';
 import {
-  filmNotFound, incorrectData, invalidId, noRights,
+  filmNotFound, incorrectData, invalidId,
 } from '../constants';
 import BadRequestError from '../errors/bad-request-err';
-import ForbiddenError from '../errors/forbidden-err';
 import NotFoundError from '../errors/not-found-err';
 import Movie from '../models/movie';
 
-export const getMovies = async (req: Request, res: Response, next: NextFunction) => {
+export const getMovies = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   const userId = req.user._id;
 
   try {
-    const movies = await Movie.find({ owner: userId }).sort({ createdAt: 'desc' });
+    const movies = await Movie.find({ owner: userId }).sort({
+      createdAt: 'desc',
+    });
     res.send(movies);
   } catch (err) {
     next(err);
   }
 };
 
-export const postMovie = async (req: Request, res: Response, next: NextFunction) => {
+export const postMovie = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   const {
     country,
     director,
@@ -64,21 +73,21 @@ export const postMovie = async (req: Request, res: Response, next: NextFunction)
   }
 };
 
-export const deleteMovie = async (req: Request, res: Response, next: NextFunction) => {
+export const deleteMovie = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   const { movieId } = req.params;
 
   try {
-    const movie = await Movie.findById(movieId);
+    const movie = await Movie.findOne({ movieId, owner: req.user._id });
 
     if (!movie) {
       throw new NotFoundError(filmNotFound);
     }
 
-    if (movie.owner.toString() !== req.user._id) {
-      throw new ForbiddenError(noRights);
-    }
-
-    await Movie.findByIdAndRemove(movieId);
+    await Movie.findByIdAndRemove(movie._id);
 
     res.send(movie);
   } catch (err: any) {

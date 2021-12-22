@@ -51,6 +51,6 @@ export const validMovie = celebrate({
 
 export const validMovieId = celebrate({
   params: Joi.object().keys({
-    movieId: Joi.string().alphanum().length(24).hex(),
+    movieId: Joi.number().required(),
   }),
 });
