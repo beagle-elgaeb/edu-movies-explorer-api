@@ -14,9 +14,8 @@ export const getMovies = async (
   const userId = req.user._id;
 
   try {
-    const movies = await Movie.find({ owner: userId }).sort({
-      createdAt: 'desc',
-    });
+    const movies = await Movie.find({ owner: { _id: userId } });
+
     res.send(movies);
   } catch (err) {
     next(err);
